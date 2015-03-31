@@ -1,0 +1,42 @@
+SHELL = /bin/sh
+
+OBJ_DIR = obj
+TARGET_DIR = bin
+
+INCLUDE = -I./include
+#.cpp文件不含路径
+SOURCE = $(notdir $(wildcard source/*.cpp))
+SOURCE+= $(notdir $(wildcard test/*.cpp))
+#.cpp替换为.o后加上前缀obj目录
+OBJS = $(SOURCE:%.cpp=$(OBJ_DIR)/%.o)
+#  <=> $(addprefix $(OBJ_DIR)/, $(SOURCE:%.cpp=%.o))
+
+CXXFLAGS = $(INCLUDE)
+LDFLAGS =
+
+TARGET = $(TARGET_DIR)/auth.exe
+
+$(TARGET) : $(OBJS)
+	-@mkdir -p $(TARGET_DIR)
+	$(CXX) -o $(TARGET) $(OBJS)
+	@echo done
+
+vpath %.cpp source test
+
+#所有.o文件都输出在obj一层目录下
+#obj/x.o 依赖于 x.cpp, 在vpath中搜索
+$(OBJS) : $(OBJ_DIR)/%.o : %.cpp
+	-@mkdir -p $(dir $@)
+	$(CXX) -c $< -o $@ $(CXXFLAGS)
+
+echo:
+	@echo INCLUDE=$(INCLUDE)
+	@echo SOURCE=$(SOURCE)
+	@echo OBJS=$(OBJS)
+
+.PHONY : clean
+
+clean : 
+	-@rm -f $(OBJS)
+	-@rm -f $(TARGET)
+

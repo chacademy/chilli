@@ -1,0 +1,27 @@
+
+---- configure
+
+apr-util-1.5.3$ ./configure --prefix=/usr/local/apr-util --with-apr=/usr/local/apr
+
+apache-log4cxx-0.10.0$ ./configure --prefix=/usr/local/log4cxx --with-apr=/usr/local/apr --with-apr-util=/usr/local/apr-util --with-charset=utf-8 --with-logchar=utf-8
+
+---- make
+apache-log4cxx-0.10.0$ vim src/main/cpp/inputstreamreader.cpp
++ #include <string.h>
+
+apache-log4cxx-0.10.0$ vim src/main/cpp/socketoutputstream.cpp
++ #include <string.h>
+
+apache-log4cxx-0.10.0$ vim src/examples/cpp/console.cpp
++ #include <stdio.h>
++ #include <string.h>
+
+----
+include:
+apache-log4cxx-0.10.0/src/main/include/
+
+lib:
+apache-log4cxx-0.10.0/src/main/cpp/.libs/
+
+examples:
+apache-log4cxx-0.10.0/src/examples/cpp/
