@@ -1,0 +1,35 @@
+
+---- build
+
+-- step 1
+
+(1) static 
+do nothing
+
+(2) dynamic
+vim CMakeLists.txt
+-------------
+     10 option(BUILD_SHARED_LIBS "Build shared libraries (DLLs)." OFF)
+     19 option(gtest_build_tests "Build all of gtest's own tests." OFF)
+     21 option(gtest_build_samples "Build gtest's sample programs." OFF)
+--------------
+change: OFF --> ON
+
+-- step 2
+
+gtest-1.7.0$ mkdir build
+gtest-1.7.0$ cd build
+gtest-1.7.0$ cmake ..
+gtest-1.7.0$ make
+
+
+---- 
+
+include:
+gtest-1.7.0/include/gtest/
+
+lib:
+gtest-1.7.0/build/libgtest*.so
+
+samples:
+gtest-1.7.0/samples
