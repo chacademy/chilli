@@ -1,12 +1,13 @@
 SHELL = /bin/sh
 
 OBJ_DIR = obj
-TARGET_DIR = .#bin
+TARGET_DIR = ./bin/
+TEST_TARGET_DIR = ./bin/test
 
 INCLUDE = -I./include -I/usr/include
 LIBS = -lmysqlclient
 
-SOURCE = $(wildcard source/*.cpp) 
+SOURCE = $(wildcard src/*.cpp) 
 SOURCE+= $(wildcard test/*.cpp)
 OBJS = $(SOURCE:%.cpp=$(OBJ_DIR)/%.o)
 #  <=> $(addprefix $(OBJ_DIR)/, $(SOURCE:%.cpp=%.o))
@@ -15,7 +16,8 @@ CXXFLAGS = -ggdb
 CXXFLAGS+= $(INCLUDE)
 LDFLAGS = $(LIBS)
 
-TARGET = $(TARGET_DIR)/auth.exe
+TARGET = $(TARGET_DIR)/authtest.exe
+#TEST_TARGET = $(TARGET_DIR)/auth_test.exe
 
 $(TARGET) : $(OBJS)
 	-@mkdir -p $(TARGET_DIR)
